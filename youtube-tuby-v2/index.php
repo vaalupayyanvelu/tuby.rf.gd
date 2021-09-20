@@ -8,10 +8,13 @@
     <title>Document</title>
 </head>
 <body>
-<div class="nav-container">
-<div class="nav">
-<h2> Hey Bro! </h2>
+<div class="div-center" style="padding :2%;">
+  <h1> Welcome !</h1>
 </div>
+<div id="navbar">
+    <a href="/">Link 1</a>
+    <a href="/">Link 2</a>
+    <a href="/">Link 3</a>
 </div>
 
 <?php
@@ -85,6 +88,24 @@ echo '</div>';
 
 $conn->close();
 ?>
+
+<div id= "footer">
+</div>
+<script>
+//For Sticky Nav Bar
+window.onscroll = function() {
+    myFunction()
+};
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 </body>
 </html>
     

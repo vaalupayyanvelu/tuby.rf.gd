@@ -1,40 +1,33 @@
-a:link {
-    color: rgb(0, 18, 78);
-    text-decoration: none;
+    body{
+        margin: 0;
+    }    
+    
+    a:link {
+        color: rgb(0, 18, 78);
+        text-decoration: none;
     }
     
     a:visited {
-    color: rgb(145, 79, 3);
-    text-decoration: none;
+        color: rgb(145, 79, 3);
+        text-decoration: none;
     }
     
     a:hover {
-    color: rgb(25, 80, 231);
-    text-decoration: none;
+        color: rgb(25, 80, 231);
+        text-decoration: none;
     }
     
     a:active {
-    color: blue;
-    text-decoration: none;
+        color: blue;
+        text-decoration: none;
     }
-    .nav-container{
+
+    .div-center{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
-    .nav{
-        margin: 3%;
-        border: 1px solid rgb(161, 161, 161);
-        border-radius: 10px;
-        background-color: #ece8e5;
-        max-width: 90%;
-        flex: 90%;
-        min-height: 10%;
-        text-align-last: center;
-        display: inline-block;
-    
-    }
-    
+       
     .thumbnail{
         width: 99%;
         margin: 0.5% 0.5% 0.5% 0.5%;
@@ -94,4 +87,46 @@ a:link {
             max-width: 92%;
     }
     }
+
+    /* For Nav Bar */
+
+    #navbar {
+        overflow: hidden;
+        background-color: #333;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+  }
+
+    #navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        background-color: rgb(23, 26, 26);
+        text-align: center;
+        padding: 20px;
+        margin: 0.3% 0.15% 0.3% 0.15%;
+        text-decoration: none;
+        border : 2px solid rgb(8, 8, 8);
+        border-radius: 10px;
+
+  }
+
+    #navbar a:hover{
+        background-color: #333;
+  }
+  
+    .content {
+        padding: 16px;
+  }
+
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+  }
+
+    .sticky + .content {
+        padding-top: 60px;
+  }
     
