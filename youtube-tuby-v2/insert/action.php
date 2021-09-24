@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv = "refresh" content = "0; url = http://tuby.rf.gd/youtube-tuby-v2/index.php#footer" />
+    <meta http-equiv = "refresh" content = "0; url = ../index.php#footer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./test.css">
     <title>Document</title>
 </head>
 <body>
@@ -24,9 +23,6 @@ $tags = $_REQUEST['tags'];
 $sql = "INSERT INTO tuby2 VALUES ('$url', '$tags')";
   
 if ($conn->query($sql) === TRUE) {
-    echo "Record inserted successfully.....
-    Redirecting to <a href='http://tuby.rf.gd/youtube-tuby-v2/index.php#footer/'>Home</a>
-    ";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
