@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div-center {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        form {
+            margin-top: 15%;
+            min-width: 25%;
+            padding: 2%;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        input {
+            border: 1px solid rgb(128, 133, 133);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div-center">
+        <form action="action.php" method="post">
+            <label for="url">Enter the URL :</label><br/>
+            <input type="text" name="url" id="url">
+            <br/>
+            <label for="tags">Enter the tags :</label><br/>
+            <input type="text" name="tags" id="tags"><br/>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+
+</html>
