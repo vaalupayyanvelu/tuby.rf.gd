@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv = "refresh" content = "0; url =/youtube-tuby-v3/index.php#footer"/>
+    <meta http-equiv = "refresh" content = "0; url =/youtube-tuby-v3/index.php"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
@@ -20,7 +20,8 @@ if ($conn->connect_error) {
 }
 $url = $_REQUEST['url'];
 $tags = $_REQUEST['tags'];
-$sql = "INSERT INTO tuby3 (`url`,`tags`) VALUES ('$url', '$tags')";
+$id = $_REQUEST['sequence'];
+$sql = "UPDATE tuby3 SET url ='$url', tags = '$tags' WHERE sequence = '$id' ";
   
 if ($conn->query($sql) === TRUE) {
 } else {

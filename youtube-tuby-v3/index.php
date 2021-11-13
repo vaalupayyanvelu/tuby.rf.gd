@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/youtube-tuby-v3/resources/stylesheet.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <title>Document</title>
 </head>
 <body>
@@ -63,40 +64,44 @@
   for ($i = 0; $i < count($tagsArray); $i++) {
     $splitted = explode(",", $tagsArray[$i]);
     for ($j = 0; $j < count($splitted); $j++) {
-      $tagsSingle[] = $splitted[$j];
+      $tagsSingle[] = trim($splitted[$j]);
     }
   }
 
   $tagsUnique = array_unique($tagsSingle);
 
-  if (isset($_GET['hello'])) {
-    $tagMeow = $_GET['meow'];
-    $sql = "SELECT `url`,`tags` FROM tuby3 WHERE tags LIKE '%$tagMeow%'";
+  if (isset($_GET['isTagSelected'])) {
+    $tagMeow = $_GET['tagName'];
+    $sql = "SELECT `url`,`tags`,`sequence` FROM tuby3 WHERE tags LIKE '%$tagMeow%'";
   } else {
-    $sql = "SELECT `url`,`tags` FROM tuby3";
+    $sql = "SELECT `url`,`tags`,`sequence` FROM tuby3";
   }
-
+  //Main select Query execution
   $result = $conn->query($sql);
-
+  //Navbar
   echo '<div id="navbar">';
-  echo '<a href="/youtube-tuby-v3/index.php">Home</a>';
+  echo '<a href="/youtube-tuby-v3/index.php" id="home">Home</a>';
   
-  echo '<select id="tags"><option>- Select -</option>';
+  echo '<select id="tags">';
+  echo '<option> Select a tag </option>';
+
+  echo '<option value="/youtube-tuby-v3/index.php"> All </option>';
   for ($i = 0; $i < count($tagsSingle); $i++) {
     if ($tagsUnique[$i]) { //To filter the empty array values
-      if($tagsUnique[$i] == $_GET['meow']){ //For Default value in Select
-        echo '<option value="/youtube-tuby-v3/index.php?hello=true&meow=' . $tagsUnique[$i] . '" selected>' . $tagsUnique[$i] . '</option>';
+      if($tagsUnique[$i] == $_GET['tagName']){ //For Default value in Select
+        echo '<option value="/youtube-tuby-v3/index.php?isTagSelected=true&tagName=' . $tagsUnique[$i] . '" selected>' . $tagsUnique[$i] . '</option>';
       }
       else{
-        echo '<option value="/youtube-tuby-v3/index.php?hello=true&meow=' . $tagsUnique[$i] . '">' . $tagsUnique[$i] . '</option>';
+        echo '<option value="/youtube-tuby-v3/index.php?isTagSelected=true&tagName=' . $tagsUnique[$i] . '">' . $tagsUnique[$i] . '</option>';
       }
     }
   }
 
   echo '</select>
-  <a href="/youtube-tuby-v3/insert/form.html" style="float:right;"> Insert </a>
+  <a href="/youtube-tuby-v3/insert/form.html" style="float:right;" id ="insert" > Insert </a>
+  <a href="/youtube-tuby-v3/index.php?editMode=true" style="float:right;" id="edit"> Edit </a>
   </div>';
-
+  //Main Container
   echo '<div class="thumbnail-container">';
   if ($result->num_rows>0) {
     while ($row = $result->fetch_assoc()) {
@@ -109,12 +114,21 @@
       $thumbnail_url = getThumbnail($videoID);
       $duration = getDuration($videoID, $apikey);
       $tags = $row['tags'];
+      $id = $row['sequence'];
 
       echo '
     <div class="thumbnail-div"><img src = "'.$thumbnail_url.'" class="thumbnail" />
-    <br/><a href="'.$url.'" style="font-size: 80%; text-decoration: none;">'.$title.'</a><br/>
+    <a href="'.$url.'" title="'.$title.'" ><p class="title">'.$title.'</a></p>
     <span class="tags">' .$tags.'</span>
-    <span class="duration">'.$duration.'</span></div>';
+    <span class="duration">'.$duration.'</span>';
+    $edit = $_GET['editMode'];
+    if ($edit){
+    echo'
+    <sapn class="modify-update"><a href="/youtube-tuby-v3/update/update.php?update=true&updateId='.$id.'" style="color:green;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></span>
+    &nbsp;
+    <sapn class="modify-delete"><a href="/youtube-tuby-v3/delete.php?delete=true&deleteId='.$id.'" style="color:red;"><i class="fa fa-trash" aria-hidden="true"></i></a></span>&nbsp;';
+    }
+    echo '</div>';
     }
   } 
   else {
@@ -129,12 +143,20 @@
   <div id= "footer">
   </div>
   <script>
-      //For dropdown
+    //For dropdown
     document.getElementById("tags").onchange = function() {
       if (this.selectedIndex !== 0) {
         window.location.href = this.value;
       }
     };
+
+    //For responsive nav bar
+    if(screen.width <= 600){
+      document.getElementById("edit").innerHTML = '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+      document.getElementById("insert").innerHTML = '<i class="fa fa-plus-square-o" aria-hidden="true"></i>';
+      document.getElementById("home").innerHTML = '<i class="fa fa-home" aria-hidden="true"></i>';
+    }
 </script>
+
 </body>
 </html>
